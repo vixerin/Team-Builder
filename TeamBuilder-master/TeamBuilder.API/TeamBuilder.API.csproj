@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Team\" />
+    <None Remove="Team\Application\" />
+    <None Remove="Team\Domain\" />
+    <None Remove="Team\Infrastructure\" />
+    <None Remove="Team\Application\Controllers\" />
+    <None Remove="Team\Application\Commands\" />
+    <None Remove="Team\Application\Queries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Team\" />
+    <Folder Include="Team\Application\" />
+    <Folder Include="Team\Domain\" />
+    <Folder Include="Team\Infrastructure\" />
+    <Folder Include="Team\Application\Controllers\" />
+    <Folder Include="Team\Application\Commands\" />
+    <Folder Include="Team\Application\Queries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TeamBuilder.DTO\TeamBuilder.DTO.csproj" />
+  </ItemGroup>
+</Project>

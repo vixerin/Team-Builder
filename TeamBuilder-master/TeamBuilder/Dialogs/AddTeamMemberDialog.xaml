@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+       xmlns:prism="http://prismlibrary.com"
+       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+       prism:ViewModelLocator.AutowireViewModel="Automatic"
+       CanBeDismissedByTappingOutsideOfPopup="False"
+       VerticalOptions="Center"
+       x:Class="TeamBuilder.Dialogs.AddTeamMemberDialog">
+    <StackLayout Margin="5">
+        <Label Text="Add new team member" VerticalOptions="Center" Margin="5" HorizontalOptions="Center" FontAttributes="Bold" FontSize="23"/>
+        <ScrollView>
+            <StackLayout Margin="10,0,5,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Name:" VerticalTextAlignment="Center" Margin="0,0,5,0" FontAttributes="Bold"/>
+                    <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}" HorizontalOptions="FillAndExpand" Margin="0,0,0,5"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Nickname:" VerticalTextAlignment="Center" Margin="0,0,5,0" FontAttributes="Bold"/>
+                    <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Path=Nickname}" HorizontalOptions="FillAndExpand" Margin="0,0,0,5"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Position:" VerticalTextAlignment="Center" Margin="0,0,5,0" FontAttributes="Bold"/>
+                    <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Path=Position}" HorizontalOptions="FillAndExpand" Margin="0,0,0,5"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Phone num:" VerticalTextAlignment="Center" Margin="0,0,5,0" FontAttributes="Bold"/>
+                    <StackLayout Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                        <Picker ItemsSource="{Binding Path=CountryCodes}" SelectedItem="{Binding Path=SelectedCountryCode}" HorizontalTextAlignment="Center" 
+                                HorizontalOptions="Fill" IsEnabled="False" Margin="0,0,5,0" TextColor="Black"/>
+                        <Entry Text="{Binding Path=PhoneNumber}" HorizontalOptions="FillAndExpand" Keyboard="Telephone" Margin="0,0,0,5"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <Grid VerticalOptions="EndAndExpand" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding Path=ConfirmCommand}" HorizontalOptions="FillAndExpand" FontAttributes="Bold" Text="Confirm" Margin="0,0,5,0"/>
+            <Button Grid.Column="1" Command="{Binding Path=CancelCommand}" HorizontalOptions="FillAndExpand" FontAttributes="Bold" Text="Cancel"/>
+        </Grid>
+    </StackLayout>
+</toolkit:Popup>

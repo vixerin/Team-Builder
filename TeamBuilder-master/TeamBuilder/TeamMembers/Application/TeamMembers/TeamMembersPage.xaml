@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TeamBuilder.TeamMembers.Application.Models"
+             x:Class="TeamBuilder.TeamMembers.Application.TeamMembers.TeamMembersPage"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="Automatic"
+             Title="The Team">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Path=TeamMemberViewModels}" Margin="0,3,0,3">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout HorizontalOptions="Fill">
+                        <Frame CornerRadius="16" Margin="8,3,8,3" BackgroundColor="LightGray" x:DataType="viewModels:TeamMemberViewModel">
+                            <StackLayout>
+                                <Label Text="{Binding Path=Name}" FontSize="16" FontAttributes="Bold"/>
+                                <Label Text="{Binding Path=NickName}" FontSize="12"/>
+                                <Label Text="{Binding Path=Position}" FontSize="12"/>
+                                <Label Text="{Binding Path=PhoneNumber}" FontSize="12"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <StackLayout Grid.Row="1">
+            <Button Text="Add Member" Command="{Binding Path=AddNewMembersCommand}" Margin="5" HorizontalOptions="Start"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>
