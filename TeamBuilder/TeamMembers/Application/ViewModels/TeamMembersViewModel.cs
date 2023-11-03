@@ -10,8 +10,8 @@ namespace TeamBuilder.TeamMembers.Application.ViewModels
     {
         private readonly ITeamMembersRepository _teamMembersRepository;
 
-        public TeamMembersViewModel(ITeamMembersRepository teamMembersRepository, INavigationService navigationService,
-            IAlertService alertService) : base(navigationService, alertService)
+        public TeamMembersViewModel(INavigationService navigationService, IAlertService alertService,
+            ITeamMembersRepository teamMembersRepository) : base(navigationService, alertService)
         {
             _teamMembersRepository = teamMembersRepository;
         }

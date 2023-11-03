@@ -34,11 +34,11 @@ public class TeamController : ControllerBase
     }
 
     [HttpPost("{id:Guid}/AddMembers")]
-    public async Task<ResultDto> AddTeamMembers(Guid id, [FromBody] List<TeamMemberDto> teamMemberDtos)
+    public async Task<ResultDto> AddTeamMembers(Guid teamId, [FromBody] List<TeamMemberDto> teamMemberDtos)
     {
         try
         {
-            var addMembersResult = await _inMemoryTeamStorage.AddMembers(teamMemberDtos);
+            var addMembersResult = await _inMemoryTeamStorage.AddMembers(teamId, teamMemberDtos);
             return addMembersResult.ToDto();
         }
         catch (Exception ex)

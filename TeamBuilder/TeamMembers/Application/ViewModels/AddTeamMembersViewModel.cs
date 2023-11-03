@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Maui.Views;
-using Prism.Services.Dialogs;
+﻿using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
+using Mopups.Interfaces;
 using TeamBuilder.TeamMembers.Application.Dialogs;
 using TeamBuilder.TeamMembers.Application.Interfaces;
 using TeamBuilder.TeamMembers.Application.Models;
@@ -12,17 +12,15 @@ namespace TeamBuilder.TeamMembers.Application.ViewModels
     public class AddTeamMembersViewModel : BaseViewModel
     {
         private readonly ITeamMembersRepository _teamMembersRepository;
+        private readonly IPopupNavigation _popupNavigation;
 
-        public AddTeamMembersViewModel(ITeamMembersRepository teamMembersRepository, INavigationService navigationService,
-            IAlertService alertService) : base(navigationService, alertService)
+        public AddTeamMembersViewModel(INavigationService navigationService, IAlertService alertService,
+            ITeamMembersRepository teamMembersRepository, IPopupNavigation popupNavigation) : base(navigationService, alertService)
         {
             _teamMembersRepository = teamMembersRepository;
+            _popupNavigation = popupNavigation;
             NewMemberViewModels = new ObservableCollection<TeamMemberViewModel>();
             IsTeamMemberSelected = false;
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
         }
 
         private DelegateCommand _addNewTeamMemberCommand;
@@ -33,8 +31,10 @@ namespace TeamBuilder.TeamMembers.Application.ViewModels
             try
             {
                 var dialogParameters = new DialogParameters { { "TeamMembers", NewMemberViewModels.ToList() } };
-                var result = (IDialogParameters) await Microsoft.Maui.Controls.Application.Current.MainPage.ShowPopupAsync(
-                        new AddTeamMemberDialog(dialogParameters, NavigationService, AlertService));
+                var addTeamMemberDialog = new AddTeamMemberDialog(dialogParameters, NavigationService, AlertService);
+                await _popupNavigation.PushAsync(addTeamMemberDialog);
+
+                var result = await addTeamMemberDialog.PopupDismissedTask;
 
                 if (result.ContainsKey("AddSuccessful") && result.ContainsKey("NewTeamMember") && result.GetValue<bool>("AddSuccessful"))
                 {

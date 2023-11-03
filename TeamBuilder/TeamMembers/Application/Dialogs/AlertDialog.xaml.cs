@@ -1,21 +1,15 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using Mopups.Pages;
 using Prism.Services.Dialogs;
-using TeamBuilder.TeamMembers.Application.Interfaces;
 
 namespace TeamBuilder.TeamMembers.Application.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AlertDialog : Popup, IDialogAware
+    public partial class AlertDialog : PopupPage
     {
         public AlertDialog(IDialogParameters parameters)
         {
             InitializeComponent();
-            BindingContext = new AlertDialogViewModel(this, parameters);
-        }
-
-        public void RequestClose(IDialogParameters parameters)
-        {
-            Close(parameters);
+            BindingContext = new AlertDialogViewModel(parameters);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Prism.Services.Dialogs;
+﻿using Mopups.Services;
+using Prism.Services.Dialogs;
 using TeamBuilder.TeamMembers.Application.Interfaces;
 
 namespace TeamBuilder.TeamMembers.Application.Dialogs
@@ -7,35 +8,37 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
     {
         private readonly IDialogAware _dialogAware;
 
-        public QuestionDialogViewModel(IDialogAware dialogAware, IDialogParameters parameters)
+        public QuestionDialogViewModel(IDialogAware dialogAware, IDialogParameters dialogParameters)
         {
             _dialogAware = dialogAware;
 
-            if (parameters.ContainsKey("Title"))
+            if (dialogParameters.ContainsKey("Title"))
             {
-                TitleLabel = parameters.GetValue<string>("Title");
+                TitleLabel = dialogParameters.GetValue<string>("Title");
             }
 
-            if (parameters.ContainsKey("Info"))
+            if (dialogParameters.ContainsKey("Info"))
             {
-                InfoLabel = parameters.GetValue<string>("Info");
+                InfoLabel = dialogParameters.GetValue<string>("Info");
             }
         }
 
         private DelegateCommand _yesCommand;
-        public DelegateCommand YesCommand => _yesCommand ??= new DelegateCommand(ExecuteYesCommand);
+        public DelegateCommand YesCommand => _yesCommand ??= new DelegateCommand(async () => await ExecuteYesCommand());
 
-        private void ExecuteYesCommand()
+        private async Task ExecuteYesCommand()
         {
-            _dialogAware.RequestClose(new DialogParameters { { "ResultAnswer", true } });
+            await MopupService.Instance.PopAsync();
+            _dialogAware.RequestClose(new DialogParameters {{"ResultAnswer", true}});
         }
 
         private DelegateCommand _noCommand;
-        public DelegateCommand NoCommand => _noCommand ??= new DelegateCommand(ExecuteNoCommand);
+        public DelegateCommand NoCommand => _noCommand ??= new DelegateCommand(async () => await ExecuteNoCommand());
 
-        private void ExecuteNoCommand()
+        private async Task ExecuteNoCommand()
         {
-            _dialogAware.RequestClose(new DialogParameters { { "ResultAnswer", false } });
+            await MopupService.Instance.PopAsync();
+            _dialogAware.RequestClose(new DialogParameters {{"ResultAnswer", false}});
         }
 
         private string _tittle = "";

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using TeamBuilder.TeamMembers.Application.Interfaces;
+﻿using TeamBuilder.TeamMembers.Application.Interfaces;
 
 namespace TeamBuilder.TeamMembers.Application.ViewModels.Base
 {

@@ -42,24 +42,22 @@ namespace TeamBuilder.API.Team.Infrastructure
             return Task.FromResult(result.ToList());
         }
 
-        public async Task<Result> AddMembers(List<TeamMemberDto> teamMembers)
+        public async Task<Result> AddMembers(Guid teamId, List<TeamMemberDto> teamMembers)
         {
             if(TeamMembers == null)
                 TeamMembers = new List<TeamMemberDto>();
 
             if (teamMembers == null)
-                return Result.Fail("Incoming team members list is null.");
+                return Result.Fail("New team members list is null.");
 
             if (teamMembers.Count == 0)
-                return Result.Fail("Incoming team members list is empty.");
+                return Result.Fail("New team members list is empty.");
 
             foreach (var member in teamMembers)
             {
                 var validationResult = TeamMemberValidator.Validate(member.Name, member.NickName, member.Position, member.PhoneNumber);
                 if (validationResult.IsFailure)
-                {
                     return Result.Fail($"Error adding team member {member.Name}:\r\n{validationResult.Error}");
-                }
             }
 
             foreach (var member in teamMembers)

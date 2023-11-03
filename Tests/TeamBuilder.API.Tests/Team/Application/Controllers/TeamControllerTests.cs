@@ -33,6 +33,56 @@ namespace TeamBuilder.API.Tests.Team.Application.Controllers
         }
 
         [Fact]
+        public async Task AddTeamMember_ReturnsResultSuccess_WhenMemberIsSuccesfulyAddedWithPhoneNumber()
+        {
+            //arrange
+            var loggerStub = new Mock<ILogger<TeamController>>();
+            var controller = new TeamController(loggerStub.Object);
+
+            //act
+            var response = await controller.AddTeamMembers(Guid.NewGuid(),
+                new List<TeamMemberDto>
+                {
+                    new()
+                    {
+                        Name = "Tomas",
+                        NickName = "Tom",
+                        Position = "Senior .NET Developer",
+                        PhoneNumber = "123222111",
+                        IsActive = true
+                    }
+                });
+
+            //assert
+            response.IsSuccess.Should().Be(true);
+        }
+
+        [Fact]
+        public async Task AddTeamMember_ReturnsResultFailure_WhenMemberPhoneIsIncorrect()
+        {
+            //arrange
+            var loggerStub = new Mock<ILogger<TeamController>>();
+            var controller = new TeamController(loggerStub.Object);
+
+            //act
+            var response = await controller.AddTeamMembers(Guid.NewGuid(),
+                new List<TeamMemberDto>
+                {
+                    new()
+                    {
+                        Name = "Tomas",
+                        NickName = "Tom",
+                        Position = "Senior .NET Developer",
+                        PhoneNumber = "48254533",
+                        IsActive = true
+                    }
+                });
+
+            //assert
+            response.IsSuccess.Should().Be(false);
+        }
+
+        [Fact]
         public async Task AddTeamMember_ReturnsResultFailure_WhenMemberDataIsMissing()
         {
             //arrange

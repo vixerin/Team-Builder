@@ -1,4 +1,5 @@
-﻿using Prism.Services.Dialogs;
+﻿using Mopups.Services;
+using Prism.Services.Dialogs;
 using TeamBuilder.DTO.Team.Infrastructure;
 using TeamBuilder.TeamMembers.Application.Interfaces;
 using TeamBuilder.TeamMembers.Application.Models;
@@ -47,6 +48,7 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
 
                 var teamMemberViewModel = TeamMemberViewModel.Create(Name, Nickname, Position, SelectedCountryCode, PhoneNumber);
 
+                await MopupService.Instance.PopAsync();
                 _dialogAware.RequestClose(new DialogParameters
                 {
                     {"NewTeamMember", teamMemberViewModel},
@@ -70,6 +72,7 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
                 if (questionResult == false)
                     return;
 
+                await MopupService.Instance.PopAsync();
                 _dialogAware.RequestClose(new DialogParameters
                 {
                     {"NewTeamMember", null},

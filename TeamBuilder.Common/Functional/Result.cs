@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+#pragma warning disable CS8625
 
 namespace TeamBuilder.Common.Functional
 {

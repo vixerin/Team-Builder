@@ -1,24 +1,22 @@
-﻿using Prism.Services.Dialogs;
-using TeamBuilder.TeamMembers.Application.Interfaces;
+﻿using Mopups.Services;
+using Prism.Services.Dialogs;
 
 namespace TeamBuilder.TeamMembers.Application.Dialogs
 {
     public class AlertDialogViewModel : BindableBase
     {
-        private readonly IDialogAware _dialogAware;
+        //private readonly IDialogAware _dialogAware;
 
-        public AlertDialogViewModel(IDialogAware dialogAware, IDialogParameters parameters)
+        public AlertDialogViewModel(IDialogParameters dialogParameters)
         {
-            _dialogAware = dialogAware;
-
-            if (parameters.ContainsKey("Title"))
+            if (dialogParameters.ContainsKey("Title"))
             {
-                TitleLabel = parameters.GetValue<string>("Title");
+                TitleLabel = dialogParameters.GetValue<string>("Title");
             }
 
-            if (parameters.ContainsKey("Info"))
+            if (dialogParameters.ContainsKey("Info"))
             {
-                InfoLabel = parameters.GetValue<string>("Info");
+                InfoLabel = dialogParameters.GetValue<string>("Info");
             }
         }
 
@@ -27,7 +25,7 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
 
         private void ExecuteConfirmCommand()
         {
-            _dialogAware.RequestClose(new DialogParameters());
+            MopupService.Instance.PopAsync();
         }
 
         private string _tittle = "";

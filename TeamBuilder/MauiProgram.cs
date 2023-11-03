@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Mopups.Hosting;
+using Mopups.Services;
 
 namespace TeamBuilder;
 
@@ -16,6 +18,9 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
+        builder.ConfigureMopups();
+        builder.Services.AddSingleton(MopupService.Instance);
 
 #if DEBUG
         builder.Logging.AddDebug();

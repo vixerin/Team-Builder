@@ -23,6 +23,8 @@ namespace TeamBuilder
 
             containerRegistry.Register<ITeamMembersRepository, TeamMembersRepository>();
             containerRegistry.Register<IAlertService, AlertService>();
+
+            //containerRegistry.RegisterSingleton<IPopupNavigation, PopupNavigation>();
         }
     }
 }
