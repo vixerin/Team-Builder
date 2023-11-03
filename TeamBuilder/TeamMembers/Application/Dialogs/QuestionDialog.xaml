@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+       xmlns:prism="http://prismlibrary.com"
+       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+       prism:ViewModelLocator.AutowireViewModel="Automatic"
+       CanBeDismissedByTappingOutsideOfPopup="False"
+       HorizontalOptions="Center"
+       VerticalOptions="Center"
+       x:Class="TeamBuilder.TeamMembers.Application.Dialogs.QuestionDialog">
+    <StackLayout Margin="5" MinimumHeightRequest="200">
+        <Label Text="{Binding Path=TitleLabel}" VerticalOptions="Center" Margin="5" HorizontalOptions="Center" FontAttributes="Bold" FontSize="21"/>
+        <ScrollView>
+            <Label Text="{Binding Path=InfoLabel}" HorizontalOptions="Center" Margin="5" HorizontalTextAlignment="Center" LineBreakMode="WordWrap" FontSize="20"/>
+        </ScrollView>
+        <Grid VerticalOptions="EndAndExpand" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding Path=YesCommand}" HorizontalOptions="FillAndExpand" FontAttributes="Bold" Text="YES" Margin="0,0,5,0"/>
+            <Button Grid.Column="1" Command="{Binding Path=NoCommand}" HorizontalOptions="FillAndExpand" FontAttributes="Bold" Text="NO"/>
+        </Grid>
+    </StackLayout>
+</toolkit:Popup>

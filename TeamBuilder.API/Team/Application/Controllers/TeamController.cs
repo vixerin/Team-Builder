@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeamBuilder.API.Team.Infrastructure;
+using TeamBuilder.Common.Functional;
 using TeamBuilder.DTO.Team.Infrastructure;
 
 namespace TeamBuilder.API.Team.Application.Controllers;
@@ -18,16 +19,32 @@ public class TeamController : ControllerBase
     }
 
     [HttpGet("{id:Guid}/Members")]
-    public async Task<IActionResult> Get(Guid id)
+    public async Task<ResultDto<List<TeamMemberDto>>> Get(Guid id)
     {
-        var response = await _inMemoryTeamStorage.GetAllTeamMembersByTeamId(id);
-        return Ok(response);
+        try
+        {
+            var response = await _inMemoryTeamStorage.GetAllTeamMembersByTeamId(id);
+            return response.ToDto();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return Result.Fail<List<TeamMemberDto>>(ex.Message).ToDto();
+        }
     }
 
-    [HttpPost("{id:Guid}/AddMember")]
-    public async Task<IActionResult> AddTeamMember(Guid id, [FromBody] TeamMemberDto teamMember)
+    [HttpPost("{id:Guid}/AddMembers")]
+    public async Task<ResultDto> AddTeamMembers(Guid id, [FromBody] List<TeamMemberDto> teamMemberDtos)
     {
-        await _inMemoryTeamStorage.AddMembers(new List<TeamMemberDto> {teamMember});
-        return Ok();
+        try
+        {
+            var addMembersResult = await _inMemoryTeamStorage.AddMembers(teamMemberDtos);
+            return addMembersResult.ToDto();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return Result.Fail(ex.Message).ToDto();
+        }
     }
 }

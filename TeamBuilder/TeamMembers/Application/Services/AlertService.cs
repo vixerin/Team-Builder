@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Maui.Views;
 using Prism.Services.Dialogs;
-using TeamBuilder.Dialogs;
+using TeamBuilder.TeamMembers.Application.Dialogs;
 using TeamBuilder.TeamMembers.Application.Interfaces;
 
-namespace TeamBuilder.TeamMembers.Application.Servoces
+namespace TeamBuilder.TeamMembers.Application.Services
 {
     public class AlertService : IAlertService
     {

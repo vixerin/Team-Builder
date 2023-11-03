@@ -48,29 +48,28 @@
 		<None Remove="TeamMembers\Application\AddTeamMembers\" />
 	</ItemGroup>
 	<ItemGroup>
-		<Folder Include="Functional\" />
 		<Folder Include="TeamMembers\Domain\" />
-		<Folder Include="ViewModels\Base\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\TeamBuilder.Common\TeamBuilder.Common.csproj" />
 	  <ProjectReference Include="..\TeamBuilder.DTO\TeamBuilder.DTO.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Dialogs\AddTeamMemberDialog.xaml.cs">
+	  <Compile Update="TeamMembers\Application\Dialogs\AddTeamMemberDialog.xaml.cs">
 	    <DependentUpon>AddTeamMemberDialog.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Dialogs\QuestionDialog.xaml.cs">
+	  <Compile Update="TeamMembers\Application\Dialogs\QuestionDialog.xaml.cs">
 	    <DependentUpon>QuestionDialog.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Dialogs\SelectTeamMemberDialog.xaml.cs">
+	  <Compile Update="TeamMembers\Application\Dialogs\SelectTeamMemberDialog.xaml.cs">
 	    <DependentUpon>SelectTeamMemberDialog.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="Dialogs\AddTeamMemberDialog.xaml">
+	  <MauiXaml Update="TeamMembers\Application\Dialogs\AddTeamMemberDialog.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Dialogs\QuestionDialog.xaml">
+	  <MauiXaml Update="TeamMembers\Application\Dialogs\QuestionDialog.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

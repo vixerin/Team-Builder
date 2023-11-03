@@ -1,11 +1,9 @@
-﻿using TeamBuilder.TeamMembers.Application.AddTeamMembers;
-using TeamBuilder.TeamMembers.Application.Interfaces;
-using TeamBuilder.TeamMembers.Application.Servoces;
-using TeamBuilder.TeamMembers.Application.TeamMembers;
+﻿using TeamBuilder.TeamMembers.Application.Interfaces;
+using TeamBuilder.TeamMembers.Application.Services;
+using TeamBuilder.TeamMembers.Application.ViewModels;
+using TeamBuilder.TeamMembers.Application.Views;
 using TeamBuilder.TeamMembers.Domain;
 using TeamBuilder.TeamMembers.Infrastructure;
-using TeamBuilder.ViewModels;
-using TeamBuilder.Views;
 
 namespace TeamBuilder
 {

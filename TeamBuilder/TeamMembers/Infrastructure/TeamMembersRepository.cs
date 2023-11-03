@@ -1,7 +1,8 @@
-﻿using TeamBuilder.DTO.Team.Infrastructure;
-using TeamBuilder.Functional;
+﻿using TeamBuilder.Common.Functional;
+using TeamBuilder.DTO.Team.Infrastructure;
 using TeamBuilder.TeamMembers.Application.Models;
 using TeamBuilder.TeamMembers.Domain;
+using TeamBuilder.TeamMembers.Infrastructure.Base;
 
 namespace TeamBuilder.TeamMembers.Infrastructure
 {
@@ -21,12 +22,16 @@ namespace TeamBuilder.TeamMembers.Infrastructure
             return Result.Ok(teamMemberViewModels);
         }
 
-        public async Task<Result> AddTeamMember(TeamMemberViewModel teamMemberViewModel)
+        public async Task<Result> AddTeamMembers(List<TeamMemberViewModel> teamMemberViewModels)
         {
-            string endpointUri = $"{Guid.NewGuid()}/AddMember";
-            var addTeamMemberResult = await PostAsync(endpointUri, teamMemberViewModel.ToDto());
+            string endpointUri = $"{Guid.NewGuid()}/AddMembers";
 
-            return addTeamMemberResult.IsFailure ? Result.Fail(addTeamMemberResult.Error) : Result.Ok();
+            var teamMemberDtos = new List<TeamMemberDto>();
+            teamMemberViewModels.ForEach(x => teamMemberDtos.Add(x.ToDto()));
+
+            var addTeamMemberResult = await PostAsync(endpointUri, teamMemberDtos);
+
+            return addTeamMemberResult;
         }
     }
 }

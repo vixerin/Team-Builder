@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeamBuilder.TeamMembers.Application.Views.AddTeamMembersPage"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="Automatic"
+             Title="Add Member(s)">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <CollectionView Grid.Row="0" x:Name="ItemView" ItemsSource="{Binding Path=NewMemberViewModels}" SelectedItem="{Binding Path=SelectedTeamMemberViewModel}"
+                        SelectionMode="Single" Margin="0,3,0,3">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView BackgroundColor="White">
+                        <StackLayout HorizontalOptions="Fill">
+                            <Frame CornerRadius="16" Margin="8,3,8,3" BackgroundColor="LightBlue" x:Name="InnerFrame">
+                                <StackLayout>
+                                    <Entry Text="{Binding Path=Name}" FontSize="16" FontAttributes="Bold" IsReadOnly="True"/>
+                                    <Entry Text="{Binding Path=NickName}" FontSize="12" IsReadOnly="True"/>
+                                    <Entry Text="{Binding Path=Position}" FontSize="12" IsReadOnly="True"/>
+                                    <Entry Text="{Binding Path=FullPhoneNumber}" FontSize="12" IsReadOnly="True"/>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal"/>
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter TargetName="InnerFrame" Property="BackgroundColor" Value="#72ACF1"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Add new" Command="{Binding Path=AddNewTeamMemberCommand}" Margin="0,0,5,0"/>
+            <Button Grid.Column="1" Text="Save" Command="{Binding Path=SaveCommand}" Margin="0,0,5,0"/>
+            <Button Grid.Column="2" Text="Remove" Command="{Binding Path=RemoveCommand}" Margin="0,0,5,0" IsEnabled="{Binding Path=IsTeamMemberSelected}"/>
+            <Button Grid.Column="3" Text="Cancel" Command="{Binding Path=CancelCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>

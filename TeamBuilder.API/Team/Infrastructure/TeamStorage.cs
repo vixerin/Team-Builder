@@ -1,4 +1,5 @@
-﻿using TeamBuilder.DTO.Team.Infrastructure;
+﻿using TeamBuilder.Common.Functional;
+using TeamBuilder.DTO.Team.Infrastructure;
 
 namespace TeamBuilder.API.Team.Infrastructure
 {
@@ -6,12 +7,15 @@ namespace TeamBuilder.API.Team.Infrastructure
     {
         public static List<TeamMemberDto> TeamMembers { get; set; }
 
-        public async Task<List<TeamMemberDto>> GetAllTeamMembersByTeamId(Guid teamId)
+        public async Task<Result<List<TeamMemberDto>>> GetAllTeamMembersByTeamId(Guid teamId)
         {
             if (TeamMembers == null)
                 TeamMembers = await GetAllTeamMembers();
 
-            return TeamMembers;
+            if (TeamMembers.Count == 0)
+                return Result.Fail<List<TeamMemberDto>>("Team members list is empty.");
+
+            return Result.Ok(TeamMembers);
         }
 
         private Task<List<TeamMemberDto>> GetAllTeamMembers()
@@ -38,15 +42,32 @@ namespace TeamBuilder.API.Team.Infrastructure
             return Task.FromResult(result.ToList());
         }
 
-        public async Task AddMembers(List<TeamMemberDto> teamMember)
+        public async Task<Result> AddMembers(List<TeamMemberDto> teamMembers)
         {
             if(TeamMembers == null)
                 TeamMembers = new List<TeamMemberDto>();
 
-            foreach (var member in teamMember)
+            if (teamMembers == null)
+                return Result.Fail("Incoming team members list is null.");
+
+            if (teamMembers.Count == 0)
+                return Result.Fail("Incoming team members list is empty.");
+
+            foreach (var member in teamMembers)
+            {
+                var validationResult = TeamMemberValidator.Validate(member.Name, member.NickName, member.Position, member.PhoneNumber);
+                if (validationResult.IsFailure)
+                {
+                    return Result.Fail($"Error adding team member {member.Name}:\r\n{validationResult.Error}");
+                }
+            }
+
+            foreach (var member in teamMembers)
             {
                 TeamMembers.Add(member);
             }
+
+            return Result.Ok();
         }
     }
 }

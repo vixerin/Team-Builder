@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TeamBuilder.API.Team.Application.Controllers;
@@ -10,24 +9,78 @@ namespace TeamBuilder.API.Tests.Team.Application.Controllers
     public class TeamControllerTests
     {
         [Fact]
-        public async Task AddTeamMember_Return200_WhenMemberIsSuccesfulyAdded()
+        public async Task AddTeamMember_ReturnsResultSuccess_WhenMemberIsSuccesfulyAdded()
         {
             //arrange
             var loggerStub = new Mock<ILogger<TeamController>>();
             var controller = new TeamController(loggerStub.Object);
 
             //act
-            var response = await controller.AddTeamMember(Guid.NewGuid(),
-                new TeamMemberDto
+            var response = await controller.AddTeamMembers(Guid.NewGuid(),
+                new List<TeamMemberDto>
                 {
-                    Name = "Tomas",
-                    NickName = "Tom",
-                    Position = "Senior .NET Developer",
-                    IsActive = true
+                    new()
+                    {
+                        Name = "Tomas",
+                        NickName = "Tom",
+                        Position = "Senior .NET Developer",
+                        IsActive = true
+                    }
                 });
 
             //assert
-            ((IStatusCodeActionResult)response).StatusCode.Should().Be(200);
+            response.IsSuccess.Should().Be(true);
+        }
+
+        [Fact]
+        public async Task AddTeamMember_ReturnsResultFailure_WhenMemberDataIsMissing()
+        {
+            //arrange
+            var loggerStub = new Mock<ILogger<TeamController>>();
+            var controller = new TeamController(loggerStub.Object);
+
+            //act
+            var response = await controller.AddTeamMembers(Guid.NewGuid(), null);
+
+            //assert
+            response.IsSuccess.Should().Be(false);
+        }
+
+        [Fact]
+        public async Task AddTeamMember_ReturnsResultFailure_WhenMemberDataIsEmpty()
+        {
+            //arrange
+            var loggerStub = new Mock<ILogger<TeamController>>();
+            var controller = new TeamController(loggerStub.Object);
+
+            //act
+            var response = await controller.AddTeamMembers(Guid.NewGuid(), new List<TeamMemberDto>());
+
+            //assert
+            response.IsSuccess.Should().Be(false);
+        }
+
+        [Fact]
+        public async Task AddTeamMember_ReturnsResultFailure_WhenMemberDataIsIncorrect()
+        {
+            //arrange
+            var loggerStub = new Mock<ILogger<TeamController>>();
+            var controller = new TeamController(loggerStub.Object);
+
+            //act
+            var response = await controller.AddTeamMembers(Guid.NewGuid(), new List<TeamMemberDto>
+            {
+                new()
+                {
+                    Name = "Tomas",
+                    NickName = "Tom",
+                    Position = null,
+                    IsActive = true
+                }
+            });
+
+            //assert
+            response.IsSuccess.Should().Be(false);
         }
     }
 }
