@@ -3,7 +3,7 @@ using TeamBuilder.Common.Functional;
 
 namespace TeamBuilder.DTO.Team.Infrastructure
 {
-    public class TeamMemberValidator
+    public static class TeamMemberValidator
     {
         private const int NameMaxLength = 64;
         private const int NickNameMaxLength = 64;

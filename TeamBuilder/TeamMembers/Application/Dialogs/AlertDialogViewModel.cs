@@ -5,8 +5,6 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
 {
     public class AlertDialogViewModel : BindableBase
     {
-        //private readonly IDialogAware _dialogAware;
-
         public AlertDialogViewModel(IDialogParameters dialogParameters)
         {
             if (dialogParameters.ContainsKey("Title"))
