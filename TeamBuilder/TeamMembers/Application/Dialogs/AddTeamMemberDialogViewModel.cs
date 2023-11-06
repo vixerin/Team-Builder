@@ -1,9 +1,9 @@
 ﻿using Mopups.Services;
 using Prism.Services.Dialogs;
-using TeamBuilder.DTO.Team.Infrastructure;
 using TeamBuilder.TeamMembers.Application.Interfaces;
 using TeamBuilder.TeamMembers.Application.Models;
 using TeamBuilder.TeamMembers.Application.ViewModels.Base;
+using TeamBuilder.Validator.Team.Infrastructure;
 
 namespace TeamBuilder.TeamMembers.Application.Dialogs
 {

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using TeamBuilder.Common.Functional;
 
-namespace TeamBuilder.DTO.Team.Infrastructure
+namespace TeamBuilder.Validator.Team.Infrastructure
 {
     public static class TeamMemberValidator
     {

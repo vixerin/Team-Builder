@@ -1,5 +1,6 @@
 ﻿using TeamBuilder.Common.Functional;
 using TeamBuilder.DTO.Team.Infrastructure;
+using TeamBuilder.Validator.Team.Infrastructure;
 
 namespace TeamBuilder.API.Team.Infrastructure
 {

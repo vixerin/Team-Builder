@@ -54,6 +54,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\TeamBuilder.Common\TeamBuilder.Common.csproj" />
 	  <ProjectReference Include="..\TeamBuilder.DTO\TeamBuilder.DTO.csproj" />
+	  <ProjectReference Include="..\TeamBuilder.Validator\TeamBuilder.Validator.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="TeamMembers\Application\Dialogs\AddTeamMemberDialog.xaml.cs">
