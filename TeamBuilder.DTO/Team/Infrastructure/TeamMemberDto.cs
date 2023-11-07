@@ -1,12 +1,12 @@
 ﻿namespace TeamBuilder.DTO.Team.Infrastructure
 {
-    public class TeamMemberDto
+    public record TeamMemberDto
     {
-        public string Name { get; set; }
-        public string NickName { get; set; }
-        public string Position { get; set; }
-        public string? CountryCode { get; set; }
-        public string? PhoneNumber { get; set; }
+        public string Name { get; init; }
+        public string NickName { get; init; }
+        public string Position { get; init; }
+        public string? CountryCode { get; init; }
+        public string? PhoneNumber { get; init; }
 
         public bool IsActive { get; set; }
 

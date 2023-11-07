@@ -4,13 +4,12 @@ namespace TeamBuilder.TeamMembers.Application.Models
 {
     public class TeamMemberViewModel
     {
-        private TeamMemberViewModel(string name, string nickName, string position,
-             string countryCode, string phoneNumber)
+        private TeamMemberViewModel(string name, string nickName, string position, string countryCode, string phoneNumber)
         {
             Name = name;
             NickName = nickName;
             Position = position;
-            CountryCode = countryCode;
+            CountryCode = string.IsNullOrWhiteSpace(phoneNumber) ? "" : countryCode;
             PhoneNumber = phoneNumber;
         }
 

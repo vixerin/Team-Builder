@@ -8,7 +8,8 @@ namespace TeamBuilder.Common.Functional
         public bool IsFailure { get; }
         public bool IsSuccess => !IsFailure;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly string _error;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] 
+        private readonly string _error;
 
         public string Error
         {
@@ -47,8 +48,8 @@ namespace TeamBuilder.Common.Functional
         private readonly Exception _exception;
         private const string _successMessage = "Sukces";
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ResultCommonLogic _logic;
-
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] 
+        private readonly ResultCommonLogic _logic;
         public bool IsFailure => _logic.IsFailure;
         public bool IsSuccess => _logic.IsSuccess;
         public string Error => _logic.Error;
@@ -167,7 +168,8 @@ namespace TeamBuilder.Common.Functional
 
     public struct Result<T>
     {
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ResultCommonLogic _logic;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] 
+        private readonly ResultCommonLogic _logic;
         private readonly Exception _exception;
 
         public bool IsFailure => _logic.IsFailure;
@@ -175,7 +177,8 @@ namespace TeamBuilder.Common.Functional
         public string Error => _logic.Error;
         public string Message { get; }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly T _value;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] 
+        private readonly T _value;
 
         public T Value
         {

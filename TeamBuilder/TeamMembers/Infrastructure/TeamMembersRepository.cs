@@ -8,7 +8,7 @@ namespace TeamBuilder.TeamMembers.Infrastructure
 {
     public class TeamMembersRepository : BaseRepository, ITeamMembersRepository
     {
-        public async  Task<Result<List<TeamMemberViewModel>>> GetTeamMembers()
+        public async Task<Result<List<TeamMemberViewModel>>> GetTeamMembers()
         {
             string endpointUri = $"{Guid.NewGuid()}/Members";
             var teamMembersResult = await GetAsync<List<TeamMemberDto>>(endpointUri);
