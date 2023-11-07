@@ -4,7 +4,7 @@ using TeamBuilder.Common.Functional;
 
 namespace TeamBuilder.TeamMembers.Infrastructure.Base
 {
-    public class BaseRepository
+    public abstract class BaseRepository
     {
         private readonly string _url;
         private readonly JsonSerializerOptions _serializerOptions;
