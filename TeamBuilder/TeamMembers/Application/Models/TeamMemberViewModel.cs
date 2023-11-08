@@ -28,11 +28,6 @@ namespace TeamBuilder.TeamMembers.Application.Models
         {
             return new TeamMemberViewModel(name, nickName, position, isActive, countryCode, phoneNumber);
         }
-
-        public static TeamMemberViewModel CreateActive(string name, string nickName, string position, string countryCode = null, string phoneNumber = null)
-        {
-            return new TeamMemberViewModel(name, nickName, position, true, countryCode, phoneNumber);
-        }
     }
 
     public static class TeamMemberConverter

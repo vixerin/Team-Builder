@@ -6,17 +6,28 @@ namespace TeamBuilder.API.Team.Infrastructure
 {
     public class InMemoryTeamStorage
     {
-        public static List<TeamMemberDto> TeamMembers { get; set; }
+        private static List<TeamMemberDto> TeamMembers { get; set; }
 
-        public async Task<Result<List<TeamMemberDto>>> GetAllTeamMembersByTeamId(Guid teamId)
+        public async Task<Result<List<TeamMemberDto>>> GetAllTeamMembersByTeamId(Guid teamId, bool? isActive)
         {
             if (TeamMembers == null)
+            {
                 TeamMembers = await GetAllTeamMembers();
+            }
 
             if (TeamMembers.Count == 0)
                 return Result.Fail<List<TeamMemberDto>>("Team members list is empty.");
 
-            return Result.Ok(TeamMembers);
+            if (isActive.HasValue == false)
+                return Result.Ok(TeamMembers);
+
+            var teamMembers = TeamMembers;
+
+            teamMembers = isActive.Value
+                ? teamMembers.Where(x => x.IsActive).ToList()
+                : teamMembers.Where(x => x.IsActive == false).ToList();
+
+            return Result.Ok(teamMembers);
         }
 
         private Task<List<TeamMemberDto>> GetAllTeamMembers()
@@ -31,8 +42,8 @@ namespace TeamBuilder.API.Team.Infrastructure
                 TeamMemberDto.CreateInactive("Amy Jade Whinehouse", "Amy", "Eurockéennes")
             };
 
-            var result = members.Where(m => m.IsActive)
-                .OrderBy(v => v.Name);
+            var result = members
+                .OrderBy(x => x.Name);
 
             return Task.FromResult(result.ToList());
         }

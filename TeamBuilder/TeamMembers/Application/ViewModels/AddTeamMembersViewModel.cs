@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Mopups.Interfaces;
 using TeamBuilder.TeamMembers.Application.Dialogs;
+using TeamBuilder.TeamMembers.Application.Enums;
 using TeamBuilder.TeamMembers.Application.Interfaces;
 using TeamBuilder.TeamMembers.Application.Models;
 using TeamBuilder.TeamMembers.Application.ViewModels.Base;
@@ -61,7 +62,7 @@ namespace TeamBuilder.TeamMembers.Application.ViewModels
                     return;
                 }
 
-                var currentTeamMembersResult = await _teamMembersRepository.GetTeamMembers();
+                var currentTeamMembersResult = await _teamMembersRepository.GetTeamMembers(DisplayMode.All);
                 if (currentTeamMembersResult.IsFailure)
                 {
                     await AlertService.ShowAlertDialogAsync("Error", currentTeamMembersResult.Error);

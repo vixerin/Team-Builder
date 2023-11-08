@@ -24,6 +24,9 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
 
             CountryCodes = new List<string> {"+48"};
             SelectedCountryCode = CountryCodes.FirstOrDefault();
+
+            IsActiveList = new List<string> {"Yes", "No"};
+            SelectedIsActive = IsActiveList.First();
         }
 
         private DelegateCommand _confirmCommand;
@@ -46,7 +49,9 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
                     return;
                 }
 
-                var teamMemberViewModel = TeamMemberViewModel.CreateActive(Name, Nickname, Position, SelectedCountryCode, PhoneNumber);
+                bool isActive = IsActiveList.IndexOf(SelectedIsActive) == 0;
+
+                var teamMemberViewModel = TeamMemberViewModel.Create(Name, Nickname, Position, isActive, SelectedCountryCode, PhoneNumber);
 
                 await MopupService.Instance.PopAsync();
                 _dialogAware.RequestClose(new DialogParameters
@@ -104,6 +109,20 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
         {
             get => _position;
             set => SetProperty(ref _position, value);
+        }
+
+        private List<string> _isActiveList;
+        public List<string> IsActiveList
+        {
+            get => _isActiveList;
+            set => SetProperty(ref _isActiveList, value);
+        }
+
+        private string _selectedIsActive;
+        public string SelectedIsActive
+        {
+            get => _selectedIsActive;
+            set => SetProperty(ref _selectedIsActive, value);
         }
 
         private string _phoneNumber;

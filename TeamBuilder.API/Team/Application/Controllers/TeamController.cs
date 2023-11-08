@@ -21,9 +21,15 @@ public class TeamController : ControllerBase
     [HttpGet("{id:Guid}/Members")]
     public async Task<ResultDto<List<TeamMemberDto>>> Get(Guid id)
     {
+        return await Get(id, null);
+    }
+
+    [HttpGet("{id:Guid}/{isActive:bool}/Members")]
+    public async Task<ResultDto<List<TeamMemberDto>>> Get(Guid id, bool? isActive)
+    {
         try
         {
-            var response = await _inMemoryTeamStorage.GetAllTeamMembersByTeamId(id);
+            var response = await _inMemoryTeamStorage.GetAllTeamMembersByTeamId(id, isActive);
             return response.ToDto();
         }
         catch (Exception ex)
@@ -34,11 +40,11 @@ public class TeamController : ControllerBase
     }
 
     [HttpPost("{id:Guid}/AddMembers")]
-    public async Task<ResultDto> AddTeamMembers(Guid teamId, [FromBody] List<TeamMemberDto> teamMemberDtos)
+    public async Task<ResultDto> AddTeamMembers(Guid id, [FromBody] List<TeamMemberDto> teamMemberDtos)
     {
         try
         {
-            var addMembersResult = await _inMemoryTeamStorage.AddMembers(teamId, teamMemberDtos);
+            var addMembersResult = await _inMemoryTeamStorage.AddMembers(id, teamMemberDtos).ConfigureAwait(false);
             return addMembersResult.ToDto();
         }
         catch (Exception ex)

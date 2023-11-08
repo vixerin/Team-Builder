@@ -1,5 +1,6 @@
 ﻿using TeamBuilder.Common.Functional;
 using TeamBuilder.DTO.Team.Infrastructure;
+using TeamBuilder.TeamMembers.Application.Enums;
 using TeamBuilder.TeamMembers.Application.Models;
 using TeamBuilder.TeamMembers.Domain;
 using TeamBuilder.TeamMembers.Infrastructure.Base;
@@ -8,9 +9,14 @@ namespace TeamBuilder.TeamMembers.Infrastructure
 {
     public class TeamMembersRepository : BaseRepository, ITeamMembersRepository
     {
-        public async Task<Result<List<TeamMemberViewModel>>> GetTeamMembers()
+        public async Task<Result<List<TeamMemberViewModel>>> GetTeamMembers(DisplayMode displayMode)
         {
-            string endpointUri = $"{Guid.NewGuid()}/Members";
+            bool? isActive = displayMode != DisplayMode.Inactive;
+
+            string endpointUri = $"{Guid.NewGuid()}/{isActive}/Members";
+            if(displayMode == DisplayMode.All)
+                endpointUri = $"{Guid.NewGuid()}/Members";
+
             var teamMembersResult = await GetAsync<List<TeamMemberDto>>(endpointUri);
 
             if (teamMembersResult.IsFailure)
