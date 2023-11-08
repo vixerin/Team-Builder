@@ -2,13 +2,14 @@
 
 namespace TeamBuilder.TeamMembers.Application.Models
 {
-    public class TeamMemberViewModel
+    public record TeamMemberViewModel
     {
-        private TeamMemberViewModel(string name, string nickName, string position, string countryCode, string phoneNumber)
+        private TeamMemberViewModel(string name, string nickName, string position, bool isActive, string countryCode, string phoneNumber)
         {
             Name = name;
             NickName = nickName;
             Position = position;
+            IsActive = isActive;
             CountryCode = string.IsNullOrWhiteSpace(phoneNumber) ? "" : countryCode;
             PhoneNumber = phoneNumber;
         }
@@ -18,12 +19,19 @@ namespace TeamBuilder.TeamMembers.Application.Models
         public string Position { get; }
         public string CountryCode { get; }
         public string PhoneNumber { get; }
+        public bool IsActive { get; }
+
         // ReSharper disable once UnusedMember.Global Used By AddTeamMembersPage and TeamMembersPage
         public string FullPhoneNumber => $"{CountryCode} {PhoneNumber}";
 
-        public static TeamMemberViewModel Create(string name, string nickName, string position, string countryCode = null, string phoneNumber = null)
+        public static TeamMemberViewModel Create(string name, string nickName, string position, bool isActive, string countryCode = null, string phoneNumber = null)
         {
-            return new TeamMemberViewModel(name, nickName, position, countryCode, phoneNumber);
+            return new TeamMemberViewModel(name, nickName, position, isActive, countryCode, phoneNumber);
+        }
+
+        public static TeamMemberViewModel CreateActive(string name, string nickName, string position, string countryCode = null, string phoneNumber = null)
+        {
+            return new TeamMemberViewModel(name, nickName, position, true, countryCode, phoneNumber);
         }
     }
 
@@ -31,12 +39,14 @@ namespace TeamBuilder.TeamMembers.Application.Models
     {
         public static TeamMemberViewModel ToViewModel(this TeamMemberDto teamMemberDto)
         {
-            return TeamMemberViewModel.Create(teamMemberDto.Name, teamMemberDto.NickName, teamMemberDto.Position, teamMemberDto.CountryCode, teamMemberDto.PhoneNumber);
+            return TeamMemberViewModel.Create(teamMemberDto.Name, teamMemberDto.NickName, teamMemberDto.Position,
+                teamMemberDto.IsActive, teamMemberDto.CountryCode, teamMemberDto.PhoneNumber);
         }
 
         public static TeamMemberDto ToDto(this TeamMemberViewModel viewModel)
         {
-            return TeamMemberDto.Create(viewModel.Name, viewModel.NickName, viewModel.Position, viewModel.CountryCode, viewModel.PhoneNumber);
+            return TeamMemberDto.Create(viewModel.Name, viewModel.NickName, viewModel.Position, viewModel.IsActive,
+                viewModel.CountryCode, viewModel.PhoneNumber);
         }
     }
 }

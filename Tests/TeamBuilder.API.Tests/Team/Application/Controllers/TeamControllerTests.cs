@@ -17,16 +17,7 @@ namespace TeamBuilder.API.Tests.Team.Application.Controllers
 
             //act
             var response = await controller.AddTeamMembers(Guid.NewGuid(),
-                new List<TeamMemberDto>
-                {
-                    new()
-                    {
-                        Name = "Tomas",
-                        NickName = "Tom",
-                        Position = "Senior .NET Developer",
-                        IsActive = true
-                    }
-                });
+                new List<TeamMemberDto> {new("Tomas", "Tom", "Senior .NET Developer", true)});
 
             //assert
             response.IsSuccess.Should().Be(true);
@@ -41,17 +32,7 @@ namespace TeamBuilder.API.Tests.Team.Application.Controllers
 
             //act
             var response = await controller.AddTeamMembers(Guid.NewGuid(),
-                new List<TeamMemberDto>
-                {
-                    new()
-                    {
-                        Name = "Tomas",
-                        NickName = "Tom",
-                        Position = "Senior .NET Developer",
-                        PhoneNumber = "123222111",
-                        IsActive = true
-                    }
-                });
+                new List<TeamMemberDto> {new("Tomas", "Tom", "Senior .NET Developer", true, PhoneNumber: "123222111")});
 
             //assert
             response.IsSuccess.Should().Be(true);
@@ -66,17 +47,7 @@ namespace TeamBuilder.API.Tests.Team.Application.Controllers
 
             //act
             var response = await controller.AddTeamMembers(Guid.NewGuid(),
-                new List<TeamMemberDto>
-                {
-                    new()
-                    {
-                        Name = "Tomas",
-                        NickName = "Tom",
-                        Position = "Senior .NET Developer",
-                        PhoneNumber = "48254533",
-                        IsActive = true
-                    }
-                });
+                new List<TeamMemberDto> {new("Tomas", "Tom", "Senior .NET Developer", true, PhoneNumber: "48254533")});
 
             //assert
             response.IsSuccess.Should().Be(false);
@@ -118,16 +89,8 @@ namespace TeamBuilder.API.Tests.Team.Application.Controllers
             var controller = new TeamController(loggerStub.Object);
 
             //act
-            var response = await controller.AddTeamMembers(Guid.NewGuid(), new List<TeamMemberDto>
-            {
-                new()
-                {
-                    Name = "Tomas",
-                    NickName = "Tom",
-                    Position = null,
-                    IsActive = true
-                }
-            });
+            var response = await controller.AddTeamMembers(Guid.NewGuid(),
+                new List<TeamMemberDto> {new("Tomas", "Tom", null, true)});
 
             //assert
             response.IsSuccess.Should().Be(false);

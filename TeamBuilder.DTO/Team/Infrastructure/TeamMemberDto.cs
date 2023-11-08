@@ -1,26 +1,24 @@
 ﻿namespace TeamBuilder.DTO.Team.Infrastructure
 {
-    public record TeamMemberDto
+    public record TeamMemberDto(string Name, string NickName, string Position, bool IsActive, string? CountryCode = null,
+        string? PhoneNumber = null)
     {
-        public string Name { get; init; }
-        public string NickName { get; init; }
-        public string Position { get; init; }
-        public string? CountryCode { get; init; }
-        public string? PhoneNumber { get; init; }
-
-        public bool IsActive { get; set; }
-
-        public static TeamMemberDto Create(string name, string nickName, string position, string? countryCode = null, string? phoneNumber = null)
+        public static TeamMemberDto Create(string name, string nickName, string position,
+            bool isActive, string? countryCode = null, string? phoneNumber = null)
         {
-            return new TeamMemberDto
-            {
-                Name = name,
-                NickName = nickName,
-                Position = position,
-                CountryCode = countryCode,
-                PhoneNumber = phoneNumber,
-                IsActive = true
-            };
+            return new TeamMemberDto(name, nickName, position, isActive, countryCode, phoneNumber);
+        }
+
+        public static TeamMemberDto CreateActive(string name, string nickName, string position,
+            string? countryCode = null, string? phoneNumber = null)
+        {
+            return new TeamMemberDto(name, nickName, position, true, countryCode, phoneNumber);
+        }
+
+        public static TeamMemberDto CreateInactive(string name, string nickName, string position,
+            string? countryCode = null, string? phoneNumber = null)
+        {
+            return new TeamMemberDto(name, nickName, position, false, countryCode, phoneNumber);
         }
     }
 }

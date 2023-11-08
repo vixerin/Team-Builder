@@ -46,7 +46,7 @@ namespace TeamBuilder.TeamMembers.Application.Dialogs
                     return;
                 }
 
-                var teamMemberViewModel = TeamMemberViewModel.Create(Name, Nickname, Position, SelectedCountryCode, PhoneNumber);
+                var teamMemberViewModel = TeamMemberViewModel.CreateActive(Name, Nickname, Position, SelectedCountryCode, PhoneNumber);
 
                 await MopupService.Instance.PopAsync();
                 _dialogAware.RequestClose(new DialogParameters
